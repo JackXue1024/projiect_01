@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            position: absolute;
+            top: 100px;
+            left: 0;
+            width: 300px;
+            height: 300px;
+            background-color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="m100">1</button>
+    <!-- <button class="m50">2</button> -->
+
+    <div></div>
+    <script>
+        var div = document.querySelector('div')
+        var m100 = document.querySelector('.m100')
+        var m50 = document.querySelector('.m50')
+
+        function animate(obj, target, callback) {
+            clearInterval(obj.timer)
+            obj.timer = setInterval(function () {
+                //缓动动画步长
+                var step = (target - obj.offsetLeft) / 10
+                //步长为负值时向下取整 正值时向上取整
+                step = step > 0 ? Math.ceil(step) : Math.floor(step)
+                if (obj.offsetLeft == target) {
+                    clearInterval(obj.timer)
+                  if (callback) {
+                      callback()
+                  }
+                }
+                obj.style.left = obj.offsetLeft + step + 'px'
+            }, 15)
+        }
+        m100.addEventListener('click', function () {
+            animate(div, 100, function () {
+                div.style.backgroundColor = 'pink'
+            })
+        })
+      
+    </script>
+</body>
+
+</html>
